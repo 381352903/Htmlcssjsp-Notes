@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>
+      主页
+    </title>
+    <style>
+      
+      body{
+        background-color:#d0e4fe;
+        
+      }
+      #demo{
+        color:red;
+      }
+      h1{
+        color:orange;
+        text-align:center;
+      }
+      p{
+        font-family:"Times New Roman";
+        font-size:30px;
+        text-align:center;
+      }
+    </style>
+    <script>
+      function disPlayDate(){
+        document.getElementById("demo").innerHTML=Date();
+      }
+    </script>
+  </head>
+  <body>
+    <h1>My blog</h1>
+    <p>
+      what's your name
+      <br>
+      <a href="https://www.baidu.com" target="_blank" >百度一下</a>
+    </p>
+    <p id="demo">
+      fuck you
+    </p>
+    
+    <buttom type="button" onclick="disPlayDate()"> 显示日期 </buttom>
+    
+  </body>
+</html>
