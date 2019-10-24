@@ -1,0 +1,76 @@
+<Window x:Class="WpfRouteEventByBubble.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="190" Width="246" WindowStartupLocation="CenterScreen">
+    <Grid x:Name="GridRoot" Background="Lime">
+        <Grid x:Name="GridA" Margin="10" Background="Blue">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Canvas x:Name="CanvasLeft" Grid.Column="0" Background="Red" Margin="10">
+                <Button x:Name="ButtonLeft" Width="65" Height="100" Margin="10" Content="Left"></Button>
+            </Canvas>
+            <Canvas x:Name="CanvasRight" Grid.Column="1" Background="Yellow" Margin="10">
+                <Button x:Name="ButtonRight" Width="65" Height="100" Margin="10" Content="Right"></Button>
+            </Canvas>
+        </Grid>
+    </Grid>
+</Window>
+
+private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("我到达了" + (sender as FrameworkElement).Name);
+            e.Handled = true;//让事件停止冒泡
+        }
+冒泡显示物件层从按钮一直到根
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+出现打开文件对话框并读取文件：
+//定义一个文件打开控件
+            OpenFileDialog ofd = new OpenFileDialog();
+            //设置打开对话框的初始目录，默认目录为exe运行文件所在的路径
+            ofd.InitialDirectory = Application.StartupPath;
+            //设置打开对话框的标题
+            ofd.Title = "请选择要打开的文件";
+            //设置打开对话框可以多选
+            ofd.Multiselect = true;
+            //设置对话框打开的文件类型
+            ofd.Filter = "文本文件|*.txt|音频文件|*.wav|图片文件|*.jpg|所有文件|*.*";
+            //设置文件对话框当前选定的筛选器的索引
+            ofd.FilterIndex = 2;
+            //设置对话框是否记忆之前打开的目录
+            ofd.RestoreDirectory = true;
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                //获取用户选择的文件完整路径
+                string filePath = ofd.FileName;
+                //获取对话框中所选文件的文件名和扩展名，文件名不包括路径
+                string fileName = ofd.SafeFileName;
+                OutLog("用户选择的文件目录为:" + filePath);
+
+                OutLog("用户选择的文件名称为:" + fileName);
+                OutLog("**************选中文件的内容**************");
+                using (FileStream fsRead = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Read))
+                {
+                    //定义二进制数组
+                    byte[] buffer = new byte[1024 * 1024 * 5];
+                    //从流中读取字节
+                    int r = fsRead.Read(buffer, 0, buffer.Length);
+                    OutLog(Encoding.Default.GetString(buffer, 0, r));
+                }
+            }
+向一个textbox中输出文字，那个textbox的Name设置成txt_FileInfo            
+private void OutLog(string strLog)
+        {
+            //如果日志信息长度超过1000行，则自动清空
+            if (txt_FileInfo.GetLineFromCharIndex(txt_FileInfo.Text.Length) > 1000)
+            {
+                //清空文本
+                txt_FileInfo.Clear();
+            }
+            txt_FileInfo.AppendText(DateTime.Now.ToString("HH:mm:ss ") + strLog + "\r\n");
+        }
+        
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
