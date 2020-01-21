@@ -1,3 +1,57 @@
+FdNLveyGt6/C
+//win
+net start mysql
+
+mysql -u root -p
+111111
+
+//create DATABASE RUNOOB;
+
+use RUNOOB;
+
+CREATE TABLE IF NOT EXISTS `table1`(`id` INT UNSIGNED AUTO_INCREMENT,`name` VARCHAR(40) NOT NULL,PRIMARY KEY(`id`))ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO table1 VALUES(1,'a');ALTER TABLE table1 ADD `score` INT DEFAULT 0;
+
+ALTER TABLE table1 ADD `score` INT DEFAULT 0;//增加新字段（列）
+
+UPDATE table1 SET name='Alice' WHERE id=1;
+
+select * from table1 order by score desc;
+select * from table1 where id=2 and name='Tom';
+
+delete from table1 where id=1;
+1.添加字段  
+
+           ALTER TABLE 表明 add 字段名称 类型(int,char,VARCHAR...) DEFAULT 默认值  位置（FIRST, AFTER+字段名称）;
+
+2.删除
+
+          ALTER TABLE 表名  DROP字段名称
+
+3.更改字段
+
+  
+
+  （1） 更改字段长度 
+
+            alter table 表名  modify  column 名称 类型;
+
+            例如：alter table ivr_strategy modify  column product_name VARCHAR(20);
+
+  （2）更改字段类型
+
+             alter table <表名> alter column <字段名> 新类型名(长度)
+
+  （3）修改字段名名称
+
+            ALTER TABLE TABLENAME Change COL1 COL2 类型 。。。;
+
+select count(*) from table1;
+
+
+
+
 181
 SELECT E1.Name as Employee
 FROM Employee as E1, Employee as E2
